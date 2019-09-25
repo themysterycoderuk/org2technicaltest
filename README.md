@@ -1,2 +1,4 @@
 # org2 technical test
-Please see [https://github.com/themysterycoderuk/org2technicaltest/wiki](The wiki for this repository) for an explanation of the code
+Please see 
+[the Wiki for this repository](https://github.com/themysterycoderuk/org2technicaltest/wiki "Technical Test Wiki") for an explanation of the code
+ 
