@@ -8,7 +8,16 @@ namespace TestRunner
 {
     public class Utilities : IUtilities, ITestEventListener
     {
+        
         private string _assemblyPath = "./bin/Debug/netcoreapp2.2/UnitTests.dll";
+
+        public Utilities(bool isProduction)
+        {
+            if (isProduction)
+            {
+                _assemblyPath = "./bin/Release/netcoreapp2.2/UnitTests.dll";
+            }
+        }
 
         public IList<string> FindTests()
         {

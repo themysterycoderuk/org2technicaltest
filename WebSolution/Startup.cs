@@ -16,12 +16,14 @@ namespace WebSolution
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            HostingEnvironment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -37,7 +39,15 @@ namespace WebSolution
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Dependency injection middleware
-            services.AddSingleton<IUtilities, Utilities>();
+            if (HostingEnvironment.IsProduction())
+            {
+                services.AddSingleton<IUtilities>(s => new Utilities(true));
+            }
+            else
+            {
+                services.AddSingleton<IUtilities>(s => new Utilities(false));
+            }
+            
             services.AddTransient<IEvenCalculator, EvenCalculator>();
         }
 

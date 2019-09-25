@@ -6,7 +6,7 @@ COPY . .
 
 # Build web application
 WORKDIR /app/WebSolution
-ENV ASPNETCORE_ENVIRONMENT Development
+ENV ASPNETCORE_ENVIRONMENT Production
 RUN dotnet publish -c Release -o out
 
 # Compose the oputput of this build with a .NET Core 2.2 runtime image
