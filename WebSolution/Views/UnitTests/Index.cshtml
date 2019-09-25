@@ -1,0 +1,57 @@
+﻿@model IList<string>
+@{
+    ViewData["Title"] = "Unit Tests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var runTest = function (testName, posn) {
+            var url = '@Url.Action("RunTest", "UnitTests")';
+           
+            $.get(url, { testName: testName }, function (data) {
+                var elId = '#test' + posn;
+                var color = data.result == 'Passed' ? 'green' : 'red';
+                var resultHtml = ' (<span style="color:' + color + '">' + data.result + '</span>)';
+                $(elId).html($(elId).html() + resultHtml);
+            });
+        }
+
+        var testNames = [
+            @for (int i =0; i < Model.Count(); i++)
+            {
+                @:'@Model[i]',
+            }
+        ];
+
+        $('#btn-run-tests').click(function () {
+            for (var i = 0; i < testNames.length; i++) {
+                runTest(testNames[i], i);
+            }
+        });
+    });
+</script>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-margin-bottom-5">Unit tests</h1>
+        <p class="nhsuk-body-l">
+            This page lists the unit tests written to support the solution.  They can
+            be interactively run by clicking the &quot;Run Tests&quot; button below.
+        </p>
+        <p class="nhsuk-body-l">
+            <button class="nhsuk-button" id="btn-run-tests">
+                Run Tests
+            </button>
+        </p>
+        <h2 class="nhsuk-u-margin-bottom-5">Test fixtures</h2>
+        <ul class="nhsuk-list">
+            @for(int i = 0; i < Model.Count; i++)
+            {
+                <li id='@($"test{i}")'>@Model[i]</li>
+            }
+        </ul>
+    </div>
+</div>
+

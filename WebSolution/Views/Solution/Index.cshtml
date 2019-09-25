@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "The Solution";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#btn-get-result').click(function () {
+            var url = '@Url.Action("GetResult", "Solution")';
+            var val = $('#txtValue').val();
+
+            $.get(url, { value: val }, function (data) {
+                $('#spnResult').text(data.result);
+                $('#results').show();
+            });
+        });
+    });
+</script>
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-margin-bottom-5">The Solution</h1>
+        <p class="nhsuk-body-l">
+            This page allows you to interactively call the solution and see the produced output.
+        </p>
+
+        <div class="nhsuk-form-group">
+            <label class="nhsuk-label" for="input-width-10">
+                Value
+            </label>
+            <input class="nhsuk-input nhsuk-input--width-10" id="txtValue" name="txtValue" type="text">
+        </div>
+        <p class="nhsuk-body-l">
+            <button class="nhsuk-button" id="btn-get-result">
+                Get Result
+            </button>
+        </p>
+        <p id="results" class="nhsuk-body-l" style="display:none">
+            Result is <span id="spnResult"></span>
+        </p>
+    </div>
+</div>
+
