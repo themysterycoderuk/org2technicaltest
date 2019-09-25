@@ -15,7 +15,7 @@ namespace TestRunner
         {
             if (isProduction)
             {
-                _assemblyPath = "./bin/Release/netcoreapp2.2/UnitTests.dll";
+                _assemblyPath = "./UnitTests.dll";
             }
         }
 
