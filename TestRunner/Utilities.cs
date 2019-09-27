@@ -19,14 +19,28 @@ namespace TestRunner
             }
         }
 
-        public IList<string> FindTests()
+        public IDictionary<string, IList<string>> FindTests()
         {
+            var testStructure = new Dictionary<string, IList<string>>();
             var runner = getRunner();
             var builder = new TestFilterBuilder();
             var filter = builder.GetFilter();
             var explore = runner.Explore(filter);
-            var testNodes = explore.SelectNodes(@"//test-case");
-            return testNodes.Cast<XmlNode>().Select(s => s.Attributes["name"].Value).ToList();
+            var testFileNodes = explore.SelectNodes(@"//test-suite/test-suite/test-suite");
+
+            foreach (var testFileNode in testFileNodes.Cast<XmlNode>())
+            {
+                var fileName = testFileNode.Attributes["name"].Value;
+                var tests = testFileNode
+                    .SelectNodes(@"./test-case")
+                    .Cast<XmlNode>()
+                    .Select(s => s.Attributes["name"].Value)
+                    .ToList();
+
+                testStructure.Add(fileName, tests);
+            }
+
+            return testStructure;
         }
 
         public string RunTest(string testName)
@@ -38,13 +52,6 @@ namespace TestRunner
             var results = runner.Run(this, filter);
             var testNodes = results.SelectNodes(@"//test-case");
             return testNodes.Cast<XmlNode>().Select(s => s.Attributes["result"].Value).First();
-        }
-
-        public void RunTests()
-        {
-
-
-            //XmlNode result = runner.Run(this, TestFilter.Empty);
         }
 
         public void OnTestEvent(string report)

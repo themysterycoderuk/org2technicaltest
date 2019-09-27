@@ -1,11 +1,11 @@
 using NUnit.Framework;
 using ScenarioSolution;
 
-namespace Tests
+namespace UnitTests
 {
-    public class Tests
+    public class EvenCalculatorTests
     {
-        private EvenCalculator _helper;
+        private IEvenCalculator _helper;
 
         [SetUp]
         public void Setup()

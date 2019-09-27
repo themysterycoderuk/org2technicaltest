@@ -4,8 +4,7 @@ namespace TestRunner
 {
     public interface IUtilities
     {
-        IList<string> FindTests();
-        void RunTests();
+        IDictionary<string, IList<string>> FindTests();
         string RunTest(string testName);
     }
 }

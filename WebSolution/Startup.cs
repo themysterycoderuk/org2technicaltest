@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ScenarioSolution;
+using ScenarioSolution.Helpers;
 using TestRunner;
 
 namespace WebSolution
@@ -49,6 +50,8 @@ namespace WebSolution
             }
             
             services.AddTransient<IEvenCalculator, EvenCalculator>();
+            services.AddTransient<IPrimeNumberDeterminator, PrimeNumberDeterminator>();
+            services.AddTransient<IXMLLoader, XMLLoader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
