@@ -1,0 +1,36 @@
+﻿@model IEnumerable<string>
+@{
+    ViewData["Title"] = "Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-margin-bottom-5">Documents</h1>
+        <p class="nhsuk-body-l">
+            This page displays previously uploaded documents and allows you to choose to upload a new document.
+        </p>
+
+        <div class="nhsuk-u-margin-bottom-5">
+            <a href='@Url.Action("Upload", "Document")' class="nhsuk-button">Upload a new file</a>
+        </div>
+
+        <h2 class="nhsuk-u-margin-bottom-5">Uploaded documents</h2>
+
+        @if (!Model.Any())
+        {
+            <p class="nhsuk-body-l">No documents found</p>
+        }
+        else
+        {
+            <ul class="nhsuk-list">
+                @foreach (var docName in Model)
+                {
+                    <li>@docName</li>
+                }
+            </ul>
+        }
+
+    </div>
+</div>
+

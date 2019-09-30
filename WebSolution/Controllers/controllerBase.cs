@@ -11,6 +11,12 @@ namespace WebSolution.Controllers
             addBreadCrumb("Home", "Index", "Home");
         }
 
+        protected void addDocumentToBreadCrumb()
+        {
+            addBreadCrumb("Home", "Index", "Home");
+            addBreadCrumb("Document", "Index", "Document");
+        }
+
         protected void addBreadCrumb(string label, string action, string controller)
         {
             IList<Breadcrumb> crumbs;

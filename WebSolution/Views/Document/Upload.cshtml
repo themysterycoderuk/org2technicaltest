@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-margin-bottom-5">Upload</h1>
+        <p class="nhsuk-body-l">
+            This page allow you to browse for an upload files.
+        </p>
+        <form asp-controller="Document" asp-action="UploadFile" enctype="multipart/form-data" id="frmUpload" method="post" class="form-label-left" role="form">
+            
+            <div class="nhsuk-form-group">
+                <div class="input-group">
+                    <div class="nhsuk-button nhsuk-button--secondary" id="btnChooseFiles">
+                        Browse…
+                    </div>
+                    <input type="file" name="file" style="display:none" id="FileInput">
+                    <input type="text" class="nhsuk-input" readonly="" id="BrowseInput">
+                </div>
+            </div>
+            <div class="nhsuk-form-group">
+                <button type="submit" class="nhsuk-button" id="UploadSmallFile">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btnChooseFiles').on('click', function () {
+        $('#FileInput').click();
+    });
+
+    $(document).on('change', ':file', function () {
+        var input = $(this)
+        var label = $('#BrowseInput').val(input.val().replace(/\\/g, '/').replace(/.*\//, ''));
+    });
+</script>
+
+
